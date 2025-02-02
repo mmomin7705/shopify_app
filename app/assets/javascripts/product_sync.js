@@ -91,10 +91,16 @@ document.addEventListener('DOMContentLoaded', function() {
       spinner.classList.add('hidden');
       syncButton.disabled = false;
       if (data.status === 'success') {
-        alert(data.message);
+        const popup = document.getElementById('successPopup');
+        popup.classList.add('show');
+
         selectAll.checked = false;
         productCheckboxes.forEach(cb => cb.checked = false);
         updateSyncButton();
+
+        setTimeout(() => {
+          popup.classList.remove('show');
+        }, 3000);
       } else {
         alert('Error: ' + data.message);
       }

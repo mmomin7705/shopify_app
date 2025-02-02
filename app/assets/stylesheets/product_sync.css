@@ -216,10 +216,9 @@ tr:hover td {
 .current-store:active {
   transform: translateY(0);
 }
-
 .success-popup {
   position: fixed;
-  top: 20px;
+  top: 40px;
   right: 20px;
   background-color: #008060;
   color: white;
@@ -233,6 +232,7 @@ tr:hover td {
   opacity: 0;
   transform: translateY(-20px);
   transition: all 0.3s ease;
+  pointer-events: none;
 }
 
 .success-popup.show {
