@@ -1,4 +1,11 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  protect_from_forgery with: :exception
+
+  private
+
+  def current_shop
+    @current_shop ||= Shop.find_by(id: session[:shop_id]) if session[:shop_id]
+  end
+
+  helper_method :current_shop
 end

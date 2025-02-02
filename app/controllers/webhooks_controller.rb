@@ -9,6 +9,7 @@ class WebhooksController < ApplicationController
       render plain: "No product data received", status: :bad_request
       return
     end
+    SyncProductsJob.perform_later(params[:source_shop_id], params[:target_shop_id], [product_data['id']])
 
     head :ok
   end
