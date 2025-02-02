@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Sync Dashboard</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'product_sync' %>
+  <%= javascript_include_tag 'product_sync' %>
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-header-left">
+      <%= image_tag('shopify.png', alt: 'Shopify Logo', style: 'width: 100px; height: 65px;') %>
+    </div>
+    <div class="store-switcher">
+      <button type="button" class="current-store" onclick="switchStore()">
+        Switch Store
+      </button>
+    </div>
+  </header>
+  <div class="main-container">
+    <div class="dashboard-card">
+      <div class="header-section">
+        <%= image_tag('shopify_product.png', alt: 'Shopify Logo', style: 'width: 65px; height: 65px;') %>
+        <div class="store-selector">
+          <label>Select Target Store</label>
+          <select id="targetStore">
+            <option value="">Select a store...</option>
+            <% @target_shops.each do |shop_name, shop_id| %>
+              <option value="<%= shop_id %>"><%= shop_name %></option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" id="selectAll" class="checkbox">
+              </th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Vendor</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @products.each do |product| %>
+              <tr>
+                <td>
+                  <input type="checkbox" class="product-checkbox checkbox" value="<%= product['id'] %>">
+                </td>
+                <td>
+                  <% if product['images']&.first %>
+                    <img src="<%= product['images'].first['src'] %>" alt="<%= product['title'] %>" class="product-image">
+                  <% end %>
+                </td>
+                <td><%= product['title'] %></td>
+                <td><%= product['vendor'] %></td>
+                <td><%= number_to_currency(product['variants']&.first&.dig('price')) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="button-section">
+        <button id="syncButton" disabled class="sync-button">
+          <span class="spinner hidden"></span>
+          Sync Selected Products
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
