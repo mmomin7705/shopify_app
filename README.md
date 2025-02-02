@@ -83,6 +83,7 @@ Before you begin, ensure you have the following installed:
    - Copy the Ngrok HTTPS URL
    - Update the APP_URL in your `.env` file
    - Update the App URL and Redirect URL (https://your-ngrok-url/auth/callback) in your Shopify Partner dashboard
+   - Go to Development.rb and add url in config.host << "Ngrok_Url"
 
 4. **Access the Application**
    ```
